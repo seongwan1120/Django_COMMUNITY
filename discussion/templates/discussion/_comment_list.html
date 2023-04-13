@@ -1,0 +1,60 @@
+{% load bootstrap5 %}
+<div>
+    <p>
+        Comments  
+    </p>
+    {% if comments %}
+    <ul>
+        {% for comment in comments %}
+        <li>
+            <a href="{% url 'common:profile' comment.author.username %}">{{ comment.author }}</a>: {{ comment.content }}
+
+            {% if request.user == comment.author %}
+
+            <form action="{% url 'discussion:comment_update' posting.pk comment.pk %}" 
+                  method="POST" 
+                  style="display: inline-block;">
+                {% csrf_token %}
+                <button onclick="return confirm('Are you sure?')">Rivise</button>
+            </form>
+
+            <form action="{% url 'discussion:comment_delete' posting.pk comment.pk %}" 
+                  method="POST" 
+                  style="display: inline-block;">
+                {% csrf_token %}
+                <button onclick="return confirm('Please check once again before delete.')">Delete</button>
+            </form>
+            {% endif %}
+            <h6> {{ comment.created_at}} {{ comment.updated_at}} </h6>
+
+            <form action="{% url 'discussion:comment_agree' posting.pk comment.pk %}" 
+                  method="POST" 
+                  style="display: inline-block;">
+                {% csrf_token %}
+                <button> Agree </button>
+            </form>
+
+            <form action="{% url 'discussion:comment_disagree' posting.pk comment.pk %}" 
+                  method="POST" 
+                  style="display: inline-block;">
+                {% csrf_token %}
+                <button> disagree </button>
+            </form>
+
+            <form action="{% url 'discussion:reply_create' posting.pk comment.pk %}" 
+                  method="POST" 
+                  style="display: inline-block;">
+                {% csrf_token %}
+                <button> reply </button>
+            </form>
+        </li>
+            
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No comments yet.</p>
+    {% endif %}
+    
+</div>
+
+{% comment %}  {% endcomment %}

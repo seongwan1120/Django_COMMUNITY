@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+
+<h1> Topic </h1>
+
+<ul>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Recommendation</th>
+            <th scope="col">Decommendation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for posting in page_obj %}
+          
+          <tr>
+            <th scope="row">{{ posting.pk }}</th>
+            <td><a href="{% url 'discussion:posting_detail' posting.pk %}">{{ posting.title }}</a></td>
+            <td><a href="{% url 'common:profile' posting.author %}">{{ posting.author }}</a></td>
+            <td>{{ posting.users_best.count }}</td>  <!-- 좋아요 명단 예정 -->
+            <td>{{ posting.users_worst.count }}</td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center mt-5">
+        {% bootstrap_pagination page_obj %}
+      </div>
+</ul>
+
+{% endblock content %}
+
+
+

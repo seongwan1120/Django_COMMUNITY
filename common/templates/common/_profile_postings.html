@@ -1,0 +1,8 @@
+<h2> Posts </h2>
+<ul>
+    {% for posting in profile_user.posting_set.all %}
+    <li>
+        <a href="{% url 'discussion:posting_detail' posting.pk %}">{{ posting.title }}</a>
+    </li>
+    {% endfor %}
+</ul>

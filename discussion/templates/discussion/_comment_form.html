@@ -1,0 +1,9 @@
+{% load bootstrap5 %}
+<div>
+    <p> Write any comments here. </p>
+    <form action="{% url 'discussion:comment_create' posting.pk %}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button class="btn btn-primary">Create</button>
+    </form>
+</div>

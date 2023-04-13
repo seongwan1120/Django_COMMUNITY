@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+       
+        
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'discussion:posting_index' %}"> Home </a>
+            </li>
+            
+            {% if request.user.is_authenticated %}
+            
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'discussion:posting_create' %}"> Create </a>
+            </li> <!-- 우하단으로 이동 예정 -->
+                    
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'common:profile' request.user %}">
+                    {{ request.user }} 
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'common:signout' %}">Logout</a>
+            </li>
+
+            <!-- 인증(로그인)되지 않은 사용자라면-->
+            {% else %}
+            <!-- 우상단으로 이동 예정 -->
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'common:signin' %}">Login</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'common:signup' %}">Signup</a>
+            </li>
+
+            {% endif %}
+
+            <li class="nav-item">
+               
+                Signed in as {{ request.user }}
+               
+            </li>  <!-- flex 이용하여 우측으로 이동 예정. 여백 조정 -->
+        </ul>
+    </div>
+</nav>

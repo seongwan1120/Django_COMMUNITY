@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1> {{ posting.title }} </h1>
+<h5> {{ posting.author }} </h2> <!-- 위치 조정 -->
+<h6> {{ posting.created_at}} {{ posting.updated_at}} </h6>
+
+<p>
+    {{ posting.content | linebreaksbr }}
+</p>
+
+{% if request.user == posting.author %}
+<p>
+    <a href="{% url 'discussion:posting_update' posting.pk %}">
+        <button class="btn btn-warning">Revise</button>
+    </a>
+</p>
+<p>
+    <form action="{% url 'discussion:posting_delete' posting.pk%}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-danger">delete</button>
+    </form>
+</p>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+    
+    <form action="{% url 'discussion:posting_best' posting.pk %}" method="POST">
+        {% csrf_token %}
+
+        {% if is_best %}
+        <button class="btn btn-primary"> <i class="bi bi-hand-thumbs-up"></i> Cancel </button> 
+        {% else %}
+        <button class="btn btn-primary"> Recommend </button>
+        {% endif %}  
+    </form>
+    
+    
+{% endif %}
+    
+    {% include 'discussion/_comment_list.html' %}
+
+{% if request.user.is_authenticated %}
+    {% include 'discussion/_comment_form.html' %}
+{% endif %}    
+<!-- reply -->
+
+{% endblock content %}
