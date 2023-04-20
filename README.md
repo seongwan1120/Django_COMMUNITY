@@ -39,7 +39,7 @@
 * ### Day 3: Completing this project by using bootstrap.
 ----
 ## Results
-### Failed to make functions including 
+### Failed in making functions including 
 1. a list of comments and replies.
 2. lists of recommendation and decommendation.
 3. a list of followings.
